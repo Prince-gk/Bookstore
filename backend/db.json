@@ -1,84 +1,85 @@
-
-[
 {
-    "id": "1",
-    "title": "The Great Gatsby",
-    "author": "F. Scott Fitzgerald",
-    "price": 15.99,
-    "category": "Classic",
-    "cover": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400",
-    "description": "A story of decadence and excess."
-},
-{
-    "id": "2",
-    "title": "To Kill a Mockingbird",
-    "author": "Harper Lee",
-    "price": 12.99,
-    "category": "Classic",
-    "cover": "https://images.unsplash.com/photo-1525909002-1b3b307a6f46?auto=format&fit=crop&q=80&w=400",
-    "description": "A tale of justice and racial prejudice in the American South."
-},
-{
-    "id": "3",
-    "title": "1984",
-    "author": "George Orwell",
-    "price": 14.99,
-    "category": "Dystopian",
-    "cover": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=400",
-    "description": "A chilling vision of a totalitarian future."
-},
-{
-    "id": "4",
-    "title": "Pride and Prejudice",
-    "author": "Jane Austen",
-    "price": 9.99,
-    "category": "Classic",
-    "cover": "https://images.unsplash.com/photo-1498079022511-d15614cb1c02?auto=format&fit=crop&q=80&w=400",
-    "description": "A classic romance of manners and misunderstandings."
-},
-{
-    "id": "5",
-    "title": "Moby-Dick",
-    "author": "Herman Melville",
-    "price": 13.99,
-    "category": "Adventure",
-    "cover": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=400",
-    "description": "The epic tale of Captain Ahab's obsession with the white whale."
-},
-{
-    "id": "6",
-    "title": "The Catcher in the Rye",
-    "author": "J.D. Salinger",
-    "price": 10.99,
-    "category": "Classic",
-    "cover": "https://images.unsplash.com/photo-1498811856213-4a34f0d52a3d?auto=format&fit=crop&q=80&w=400",
-    "description": "A young man's journey through alienation and angst."
-},
-{
-    "id": "7",
-    "title": "Brave New World",
-    "author": "Aldous Huxley",
-    "price": 11.99,
-    "category": "Dystopian",
-    "cover": "https://images.unsplash.com/photo-1526055577104-6b0c23d18e4d?auto=format&fit=crop&q=80&w=400",
-    "description": "A futuristic society held captive by technology and conditioning."
-},
-{
-    "id": "8",
-    "title": "The Odyssey",
-    "author": "Homer",
-    "price": 16.99,
-    "category": "Epic",
-    "cover": "https://images.unsplash.com/photo-1505312928311-65e2fa23c35d?auto=format&fit=crop&q=80&w=400",
-    "description": "An ancient Greek hero’s journey across treacherous seas."
-},
-{
-    "id": "9",
-    "title": "Frankenstein",
-    "author": "Mary Shelley",
-    "price": 8.99,
-    "category": "Horror",
-    "cover": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&q=80&w=400",
-    "description": "A scientist’s dangerous quest to create life."
+  "books": [
+    {
+      "id": "1",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "price": 15.99,
+      "category": "Classic",
+      "cover": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400",
+      "description": "A story of decadence and excess."
+    },
+    {
+      "id": "2",
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "price": 12.99,
+      "category": "Classic",
+      "cover": "https://images.unsplash.com/photo-1525909002-1b3b307a6f46?auto=format&fit=crop&q=80&w=400",
+      "description": "A tale of justice and racial prejudice in the American South."
+    },
+    {
+      "id": "4",
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "price": 9.99,
+      "category": "Classic",
+      "cover": "https://images.unsplash.com/photo-1498079022511-d15614cb1c02?auto=format&fit=crop&q=80&w=400",
+      "description": "A classic romance of manners and misunderstandings."
+    },
+    {
+      "id": "5",
+      "title": "Moby-Dick",
+      "author": "Herman Melville",
+      "price": 13.99,
+      "category": "Adventure",
+      "cover": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=400",
+      "description": "The epic tale of Captain Ahab's obsession with the white whale."
+    },
+    {
+      "id": "6",
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "price": 10.99,
+      "category": "Classic",
+      "cover": "https://images.unsplash.com/photo-1498811856213-4a34f0d52a3d?auto=format&fit=crop&q=80&w=400",
+      "description": "A young man's journey through alienation and angst."
+    },
+    {
+      "title": "Brave New World",
+      "author": "Aldous Huxley",
+      "price": 11.99,
+      "category": "Dystopian",
+      "cover": "https://images.unsplash.com/photo-1526055577104-6b0c23d18e4d?auto=format&fit=crop&q=80&w=400",
+      "description": "A futuristic society held captive by technology and conditioning.",
+      "id": "7"
+    },
+    {
+      "id": "8",
+      "title": "The Odyssey",
+      "author": "Homer",
+      "price": 16.99,
+      "category": "Epic",
+      "cover": "https://images.unsplash.com/photo-1505312928311-65e2fa23c35d?auto=format&fit=crop&q=80&w=400",
+      "description": "An ancient Greek hero’s journey across treacherous seas."
+    },
+    {
+      "id": "9",
+      "title": "Frankenstein",
+      "author": "Mary Shelley",
+      "price": 8.99,
+      "category": "Horror",
+      "cover": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&q=80&w=400",
+      "description": "A scientist’s dangerous quest to create life."
+    },
+    {
+      "id": "8fb0",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "price": "15.99",
+      "category": "Classic",
+      "cover": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400",
+      "description": "A story of decadence and excess."
+    }
+  ]
 }
-]

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:vite\" \"npm run dev:json-server\"",
     "dev:vite": "vite",
-    "dev:json-server": "npx json-server --watch backend/db.json --port 3001"
+    "dev:json-server": "npx json-server --watch backend/db.json --port 3001",
+    "build": "vite build"
   },
   "dependencies": {
     "axios": "^1.7.7",

@@ -4,7 +4,10 @@ import { useCart } from '../context/CartContext';
 
 function Cart() {
   const { cart, removeFromCart, updateQuantity, cartTotal } = useCart();
-console.log("cart rendered");
+
+  console.log("cart rendered");
+
+  // If cart is empty, show empty cart message
   if (cart.length === 0) {
     return (
       <div className="text-center">
@@ -45,13 +48,18 @@ console.log("cart rendered");
                   </div>
                 </div>
               </td>
-              <td>${item.price.toFixed(2)}</td>
+              <td>${item.price}</td> {/* Corrected this line */}
               <td>
                 <div className="d-flex align-items-center" style={{ width: '120px' }}>
                   <Button
                     variant="outline-secondary"
                     size="sm"
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    onClick={() => {
+                      // Only decrease quantity if it's more than 1
+                      if (item.quantity > 1) {
+                        updateQuantity(item.id, item.quantity - 1);
+                      }
+                    }}
                   >
                     -
                   </Button>
@@ -83,7 +91,7 @@ console.log("cart rendered");
             <td colSpan="3" className="text-end fw-bold">
               Total:
             </td>
-            <td className="fw-bold">${cartTotal.toFixed(2)}</td>
+            <td className="fw-bold">${isNaN(cartTotal) ? 0 : cartTotal.toFixed(2)}</td>
             <td></td>
           </tr>
         </tfoot>
@@ -97,6 +105,5 @@ console.log("cart rendered");
     </div>
   );
 }
-
 
 export default Cart;

@@ -1,33 +1,38 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Spinner, Alert } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function UpdateBook() {
-  const [book, setBook] = useState(null);   // State to hold fetched book data
+  const [book, setBook] = useState(null); // Book data from the server
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
   const [cover, setCover] = useState('');
   const [description, setDescription] = useState('');
-  const { id } = useParams();   // Get the book ID from the URL
-  const navigate = useNavigate();  // For navigating after update
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
+  const { id } = useParams(); // Book ID from the route
+  const navigate = useNavigate(); // Navigation instance
 
-  // Fetch book details when the component mounts
   useEffect(() => {
     const fetchBook = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/books/${id}`);
-        setBook(response.data);
-        setTitle(response.data.title);
-        setAuthor(response.data.author);
-        setPrice(response.data.price);
-        setCategory(response.data.category);
-        setCover(response.data.cover);
-        setDescription(response.data.description);
-      } catch (error) {
-        console.error('Error fetching book details:', error);   // Handle error if API request fails
+        const data = response.data;
+        setBook(data);
+        setTitle(data.title || '');
+        setAuthor(data.author || '');
+        setPrice(data.price || '');
+        setCategory(data.category || '');
+        setCover(data.cover || '');
+        setDescription(data.description || '');
+      } catch (err) {
+        setError('Failed to fetch book details. Please try again later.');
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -35,26 +40,52 @@ function UpdateBook() {
   }, [id]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();   // Prevent page refresh on form submission
+    e.preventDefault();
 
-    const updatedBook = { title, author, price: parseFloat(price), category, cover, description };
+    if (!title || !author || !price || !category || !cover || !description) {
+      setError('Please fill out all fields before submitting.');
+      return;
+    }
+
+    const updatedBook = {
+      title,
+      author,
+      price: parseFloat(price),
+      category,
+      cover,
+      description,
+    };
 
     try {
-      // Update the book with PUT request
       await axios.put(`http://localhost:3001/books/${id}`, updatedBook);
-      navigate(`/book/${id}`);   // Redirect to the book details page after update
-    } catch (error) {
-      console.error('Error updating book:', error);   // Handle error if PUT request fails
+      navigate(`/book/${id}`); // Redirect to book details page after success
+    } catch (err) {
+      setError('Failed to update book. Please try again later.');
     }
   };
 
-  if (!book) return <div>Loading...</div>;  // Show a loading message while the book data is being fetched
+  if (isLoading) {
+    return (
+      <div className="text-center">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert variant="danger" className="text-center">
+        {error}
+      </Alert>
+    );
+  }
 
   return (
     <div>
       <h2>Update Book</h2>
       <Form onSubmit={handleSubmit}>
-        {/* Form fields similar to AddBook */}
         <Form.Group controlId="formTitle">
           <Form.Label>Title</Form.Label>
           <Form.Control
@@ -65,7 +96,7 @@ function UpdateBook() {
           />
         </Form.Group>
 
-        <Form.Group controlId="formAuthor">
+        <Form.Group controlId="formAuthor" className="mt-3">
           <Form.Label>Author</Form.Label>
           <Form.Control
             type="text"
@@ -75,17 +106,18 @@ function UpdateBook() {
           />
         </Form.Group>
 
-        <Form.Group controlId="formPrice">
+        <Form.Group controlId="formPrice" className="mt-3">
           <Form.Label>Price</Form.Label>
           <Form.Control
             type="number"
+            step="0.01"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
           />
         </Form.Group>
 
-        <Form.Group controlId="formCategory">
+        <Form.Group controlId="formCategory" className="mt-3">
           <Form.Label>Category</Form.Label>
           <Form.Control
             type="text"
@@ -95,17 +127,17 @@ function UpdateBook() {
           />
         </Form.Group>
 
-        <Form.Group controlId="formCover">
+        <Form.Group controlId="formCover" className="mt-3">
           <Form.Label>Cover Image URL</Form.Label>
           <Form.Control
-            type="text"
+            type="url"
             value={cover}
             onChange={(e) => setCover(e.target.value)}
             required
           />
         </Form.Group>
 
-        <Form.Group controlId="formDescription">
+        <Form.Group controlId="formDescription" className="mt-3">
           <Form.Label>Description</Form.Label>
           <Form.Control
             as="textarea"

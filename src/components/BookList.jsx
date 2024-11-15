@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Card, Row, Col, Spinner, Alert } from 'react-bootstrap';
+import { Button, Card, Row, Col, Spinner, Alert, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
 
@@ -8,6 +8,9 @@ function BookList() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
+
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
@@ -16,9 +19,9 @@ function BookList() {
       try {
         const response = await axios.get('http://localhost:3001/books');
         setBooks(response.data);
-        setLoading(false);
-      } catch (error) {
+      } catch (err) {
         setError('Error fetching books. Please try again later.');
+      } finally {
         setLoading(false);
       }
     };
@@ -26,31 +29,39 @@ function BookList() {
     fetchBooks();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleShowModal = (book) => {
+    setSelectedBook(book); // Store the book to be deleted
+    setShowModal(true);    // Show the modal
+  };
+
+  const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3001/books/${id}`);
-      setBooks(books.filter((book) => book.id !== id)); // Update the state after deleting
-    } catch (error) {
+      await axios.delete(`http://localhost:3001/books/${selectedBook.id}`);
+      setBooks((prevBooks) => prevBooks.filter((book) => book.id !== selectedBook.id));
+      setShowModal(false); // Close the modal after deletion
+    } catch (err) {
       setError('Error deleting book. Please try again.');
+      setShowModal(false); // Close the modal
     }
   };
 
   const handleCreate = () => {
-    navigate('/create-book'); // Navigate to the create book page
+    navigate('/add-book'); // Navigate to the create book page
   };
 
   if (loading) {
     return (
-      <div className="text-center">
-        <Spinner animation="border" role="status" />
-        <span className="ms-2">Loading...</span>
+      <div className="text-center my-5">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center">
+      <div className="text-center my-5">
         <Alert variant="danger">{error}</Alert>
       </div>
     );
@@ -58,8 +69,11 @@ function BookList() {
 
   if (books.length === 0) {
     return (
-      <div className="text-center">
+      <div className="text-center my-5">
         <Alert variant="info">No books available at the moment.</Alert>
+        <Button variant="success" onClick={handleCreate} className="mt-3">
+          Create New Book
+        </Button>
       </div>
     );
   }
@@ -73,14 +87,19 @@ function BookList() {
       <Row xs={1} md={2} lg={3} className="g-4">
         {books.map((book) => (
           <Col key={book.id}>
-            <Card className="book-card h-100">
-              <Card.Img variant="top" src={book.cover} alt={book.title} className="book-cover" />
+            <Card className="h-100 shadow-sm">
+              <Card.Img
+                variant="top"
+                src={book.cover || 'https://img.freepik.com/free-photo/book-composition-with-open-book_23-2147690555.jpg'}
+                alt={book.title || 'Book Cover'}
+                className="book-cover"
+              />
               <Card.Body className="d-flex flex-column">
-                <Card.Title>{book.title}</Card.Title>
-                <Card.Text className="text-muted">{book.author}</Card.Text>
+                <Card.Title>{book.title || 'Untitled'}</Card.Title>
+                <Card.Text className="text-muted">{book.author || 'Unknown Author'}</Card.Text>
                 <div className="mt-auto">
                   <div className="d-flex justify-content-between align-items-center mb-2">
-                    <span className="badge bg-secondary">{book.category}</span>
+                    <span className="badge bg-secondary">{book.category || 'Uncategorized'}</span>
                     <span className="text-success fw-bold">
                       {isNaN(book.price) ? '$0.00' : `$${parseFloat(book.price).toFixed(2)}`}
                     </span>
@@ -91,14 +110,14 @@ function BookList() {
                     </Link>
                     <Button
                       variant="warning"
-                      onClick={() => navigate(`/edit-book/${book.id}`)} // Navigate to the edit book page
+                      onClick={() => navigate(`/edit-book/${book.id}`)}
                       className="flex-grow-1"
                     >
                       Edit
                     </Button>
                     <Button
                       variant="danger"
-                      onClick={() => handleDelete(book.id)}
+                      onClick={() => handleShowModal(book)}
                       className="flex-grow-1"
                     >
                       Delete
@@ -110,6 +129,32 @@ function BookList() {
           </Col>
         ))}
       </Row>
+
+      {/* Confirmation Modal */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Deletion</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedBook ? (
+            <>
+              Are you sure you want to delete the book: <b>{selectedBook.title}</b>?
+              <br />
+              This action cannot be undone.
+            </>
+          ) : (
+            'Are you sure you want to delete this book?'
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

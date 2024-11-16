@@ -23,7 +23,7 @@ function EditBook() {
     useEffect(() => {
         const fetchBook = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/books/${id}`);
+                const response = await axios.get(`https://bookstore-48wg.onrender.com/books/${id}`);
                 setBook(response.data);
                 setLoading(false);
             } catch (err) {
@@ -50,7 +50,7 @@ function EditBook() {
         setSuccess(false);
 
         try {
-            await axios.put(`http://localhost:3001/books/${id}`, book);
+            await axios.put(`https://bookstore-48wg.onrender.com/books/${id}`, book);
             setSuccess(true);
             navigate('/'); // Redirect to the book list after successful update
         } catch (err) {

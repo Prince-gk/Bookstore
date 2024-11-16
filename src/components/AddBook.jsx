@@ -27,7 +27,7 @@ function AddBook() {
 
     try {
 
-      const response = await axios.get('http://localhost:3001/books');
+      const response = await axios.get('https://bookstore-48wg.onrender.com/books');
       const books = response.data;
 
 
@@ -43,7 +43,7 @@ function AddBook() {
         description,
       };
 
-      await axios.post('http://localhost:3001/books', newBook);
+      await axios.post('https://bookstore-48wg.onrender.com/books', newBook);
 
 
       setTitle('');

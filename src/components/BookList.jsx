@@ -17,7 +17,7 @@ function BookList() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/books');
+        const response = await axios.get('https://bookstore-48wg.onrender.com/books');
         setBooks(response.data);
       } catch (err) {
         setError('Error fetching books. Please try again later.');
@@ -36,7 +36,7 @@ function BookList() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3001/books/${selectedBook.id}`);
+      await axios.delete(`https://bookstore-48wg.onrender.com/books/${selectedBook.id}`);
       setBooks((prevBooks) => prevBooks.filter((book) => book.id !== selectedBook.id));
       setShowModal(false); // Close the modal after deletion
     } catch (err) {

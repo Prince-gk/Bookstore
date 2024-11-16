@@ -20,7 +20,7 @@ function UpdateBook() {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/books/${id}`);
+        const response = await axios.get(`https://bookstore-48wg.onrender.com/books/${id}`);
         const data = response.data;
         setBook(data);
         setTitle(data.title || '');
@@ -57,7 +57,7 @@ function UpdateBook() {
     };
 
     try {
-      await axios.put(`http://localhost:3001/books/${id}`, updatedBook);
+      await axios.put(`https://bookstore-48wg.onrender.com/books/${id}`, updatedBook);
       navigate(`/book/${id}`); // Redirect to book details page after success
     } catch (err) {
       setError('Failed to update book. Please try again later.');

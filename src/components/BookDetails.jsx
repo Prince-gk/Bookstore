@@ -16,7 +16,7 @@ function BookDetails() {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/books/${id}`);
+        const response = await axios.get(`https://bookstore-48wg.onrender.com/books/${id}`);
         setBook(response.data);
       } catch (err) {
         console.error(err);

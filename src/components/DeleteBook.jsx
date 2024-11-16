@@ -16,7 +16,7 @@ function DeleteBook() {
 
     try {
       // Send DELETE request to remove the book
-      await axios.delete(`http://localhost:3001/books/${id}`);
+      await axios.delete(`https://bookstore-48wg.onrender.com/books/${id}`);
       navigate('/'); // Navigate back to the home page after successful deletion
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete the book. Please try again.');

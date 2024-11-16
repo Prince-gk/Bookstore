@@ -1,6 +1,11 @@
 # Empowering Access to Books: An Online Platform for Everyone  
 
-**Group 8b - University of Nairobi**  
+**Group 8b 
+ **Contributors**:  
+   -Peter Mutua.  
+   -Prince Karanja.
+   -Sharon Cherono
+
 
 This project is a React-based online bookstore designed to enhance access to books for everyone. It allows users to browse books, view details, add or remove books from a cart, and perform CRUD operations for managing the book list.  
 
